@@ -1,11 +1,18 @@
-__pycache__/
-*.pyc
-*.pyo
-.pytest_cache/
-*.egg-info/
-build/
-dist/
-*.log
-.DS_Store
-.venv/
-venv/
+# Coverage
+.coverage
+coverage.xml
+htmlcov/
+
+# MyPy
+.mypy_cache/
+
+# Ruff
+.ruff_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+Thumbs.db

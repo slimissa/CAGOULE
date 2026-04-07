@@ -1,5 +1,11 @@
 # CAGOULE v1.1
 
+[![Python Version](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/downloads/)
+[![Tests](https://img.shields.io/badge/tests-162%2F162-brightgreen)](./tests)
+[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
+[![GitHub Actions](https://github.com/slimissa/CAGOULE/actions/workflows/tests.yml/badge.svg)](https://github.com/slimissa/CAGOULE/actions/workflows/tests.yml)
+[![Code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+z
 **Cryptographie Algébrique Géométrique par Ondes et Logique Entrelacée**
 
 Système de chiffrement symétrique hybride fusionnant des primitives cryptographiques modernes avec des structures mathématiques issues du **Concours Général Sénégalais 2025** (CGS2025).
