@@ -1,0 +1,16 @@
+LICENSE
+README.md
+pyproject.toml
+cagoule.egg-info/PKG-INFO
+cagoule.egg-info/SOURCES.txt
+cagoule.egg-info/dependency_links.txt
+cagoule.egg-info/entry_points.txt
+cagoule.egg-info/requires.txt
+cagoule.egg-info/top_level.txt
+tests/test_fp2.py
+tests/test_kat.py
+tests/test_matrix.py
+tests/test_mu.py
+tests/test_params.py
+tests/test_roundtrip.py
+tests/test_sbox.py

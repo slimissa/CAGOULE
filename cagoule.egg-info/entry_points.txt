@@ -1,0 +1,2 @@
+[console_scripts]
+cagoule = cagoule.cli:main
