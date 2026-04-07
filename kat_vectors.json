@@ -1,0 +1,36 @@
+{
+  "version": "1.1",
+  "generated_at": "2026-04-06T01:33:04Z",
+  "description": "Known Answer Tests - CAGOULE v1.1 - NE PAS MODIFIER",
+  "parameters": {
+    "password": "CAGOULE_KAT_2026_MASTER_FIXED",
+    "salt_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "nonce_hex": "000000000000000000000000",
+    "plaintext_hex": "48656c6c6f2c20576f726c642100",
+    "plaintext_utf8": "Hello, World!\u0000"
+  },
+  "derived": {
+    "n_zeta": 63237,
+    "p": 13226797537736071951,
+    "p_bytes": 8,
+    "mu_strategy": "A",
+    "mu_hex": "19b0ec0e96257217",
+    "k_stream_hex": "abf8d87e4788054d4655eed824e73942e975edc1ade26db205f4d06d27322695",
+    "round_key_0": 11903460855769757603,
+    "round_key_63": 10521424874698929107
+  },
+  "output": {
+    "t_message_hex": "1bd966e3ee85e4144c4fb01cad6154e36b3d2b5d1f973807597363d04b7ac7b5abf97518dcd6f48c85a0f7d6b4ce6e2a171f15aeddfe8a3b720c25725a395c9970eec63709a577a886cc666e756681382f0cc46353817481aa491a0672864cb3b3ae81362b2256d156f7a332d8ece313a4a9f5bcfaa173b9afa29987b0d26679",
+    "t_message_len": 128,
+    "ciphertext_hex": "1feabc3a83b82b8e0708a0a3a67177d728254ebbba090af20d41e446c363795122ccf81e6876769db80b37639b269ac63ff89c0f0955b33090151a85245facea56e0da5f8f5beacd359ec90ea757760c2453ef1c0f7fd21b8410d5f96749cf400b963c077ee3101a9940c2b927c80e6e1de24a692c0cd8392fc0255a7950ff17",
+    "ciphertext_len": 128,
+    "tag_hex": "687de261232019313a9a255bdea1ae2f",
+    "cgl1_hex": "43474c3101000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f0000000000000000000000001feabc3a83b82b8e0708a0a3a67177d728254ebbba090af20d41e446c363795122ccf81e6876769db80b37639b269ac63ff89c0f0955b33090151a85245facea56e0da5f8f5beacd359ec90ea757760c2453ef1c0f7fd21b8410d5f96749cf400b963c077ee3101a9940c2b927c80e6e1de24a692c0cd8392fc0255a7950ff17687de261232019313a9a255bdea1ae2f",
+    "cgl1_len": 193,
+    "sha256_cgl1": "87f3e70d0f3afa88905bb7a13b26a5658d7bd2177a24a92e9b770224b6b5c3f8"
+  },
+  "performance": {
+    "fast_mode": true,
+    "kdf_type": "Argon2id (light)"
+  }
+}

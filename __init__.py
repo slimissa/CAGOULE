@@ -1,0 +1,72 @@
+"""
+CAGOULE v1.1 — Cryptographie Algébrique Géométrique par Ondes et Logique Entrelacée
+
+Système de chiffrement symétrique hybride fusionnant des primitives
+cryptographiques modernes avec des structures mathématiques pures
+issues du Concours Général Sénégalais 2025.
+
+Exemple d'utilisation:
+    from cagoule import encrypt, decrypt
+    
+    # Chiffrement
+    ciphertext = encrypt(b"Hello, World!", b"my_secret_password")
+    
+    # Déchiffrement
+    plaintext = decrypt(ciphertext, b"my_secret_password")
+    
+    # Avec gestion d'erreur
+    from cagoule import CagouleAuthError
+    try:
+        plaintext = decrypt(ciphertext, b"wrong_password")
+    except CagouleAuthError:
+        print("Mot de passe incorrect")
+"""
+
+from .__version__ import __version__, __version_info__, __release_date__
+
+# Exceptions publiques
+from .decipher import CagouleAuthError, CagouleFormatError, CagouleError
+
+# Classes principales
+from .params import CagouleParams
+
+# Fonctions principales
+from .cipher import encrypt
+from .decipher import decrypt
+
+# Utilitaires
+from .format import parse, inspect, serialize, is_cgl1, OVERHEAD, MAGIC
+
+# CLI (exposée mais pas automatiquement importée)
+__all__ = [
+    # Version
+    "__version__",
+    "__version_info__",
+    "__release_date__",
+    
+    # Exceptions
+    "CagouleError",
+    "CagouleAuthError", 
+    "CagouleFormatError",
+    
+    # Classes
+    "CagouleParams",
+    
+    # Fonctions principales
+    "encrypt",
+    "decrypt",
+    
+    # Utilitaires
+    "parse",
+    "inspect", 
+    "serialize",
+    "is_cgl1",
+    "OVERHEAD",
+    "MAGIC",
+]
+
+# Documentation du package
+__docformat__ = "restructuredtext"
+__author__ = "CAGOULE Team"
+__copyright__ = "Copyright 2026, CAGOULE Project"
+__license__ = "Proprietary - Confidential"
