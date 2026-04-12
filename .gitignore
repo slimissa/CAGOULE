@@ -1,0 +1,66 @@
+# ─── Environnement virtuel ─────────────────────────────────────────────
+venv/
+env/
+ENV/
+.venv/
+
+# ─── Build / distribution ─────────────────────────────────────────────
+build/
+dist/
+*.egg-info/
+*.egg
+*.whl
+*.tar.gz
+
+# ─── Python cache ─────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# ─── Tests / coverage ─────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.cover
+
+# ─── Documentation ────────────────────────────────────────────────────
+docs/_build/
+site/
+
+# ─── Fichiers temporaires ─────────────────────────────────────────────
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# ─── Notebooks (si vous en utilisez) ──────────────────────────────────
+.ipynb_checkpoints/
+
+# ─── Fichiers de benchmark / test ─────────────────────────────────────
+*.cgl1
+*.dec
+test.txt
+output/
+outputs/
+
+# ─── Node.js (pour génération rapport DOCX) ───────────────────────────
+node_modules/
+package-lock.json
+package.json
+
+# ─── IDEs ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.sublime-*
+
+# ─── Fichiers sensibles ───────────────────────────────────────────────
+*.key
+*.pem
+*.crt
+.secrets/

@@ -1,0 +1,16 @@
+# Inclure la documentation
+include README.md
+include LICENSE
+
+# Inclure les données du package
+recursive-include cagoule *.json
+
+# Exclure les dossiers de test et scripts
+prune tests
+prune scripts
+prune docs
+
+# Exclure les fichiers temporaires
+global-exclude *.pyc
+global-exclude __pycache__
+global-exclude .DS_Store

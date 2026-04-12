@@ -1,0 +1,31 @@
+{
+  "version": "1.5",
+  "description": "Known Answer Test for CAGOULE v1.5",
+  "generated": "2026-04-09",
+  "parameters": {
+    "password": "CAGOULE_KAT_2026_MASTER_FIXED",
+    "salt_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "nonce_hex": "000000000000000000000000",
+    "plaintext_hex": "48656c6c6f2c20576f726c6421",
+    "plaintext_len": 13
+  },
+  "derived": {
+    "n_zeta": 22190,
+    "p": 16984848376641921697,
+    "mu_strategy": "A",
+    "mu_in_fp2": false,
+    "mu_hex": "34b6f1014e2a6b6e",
+    "k_stream_hex": "3988ab57669856a6bb52d14dbd208bdee3e7f8690c5212da434c4828a0435737",
+    "round_key_0": 6992510215077438670,
+    "round_key_63": 11383604461277417080,
+    "sbox_type": "fallback"
+  },
+  "output": {
+    "t_message_hex": "14dc7e7ceb0cbfaf0f189647ff1098ca9a29be15dd4c1cfd85f9be1aebada01c250832bd8abda9db8c7b926f1b736d64c5df980f1d1234b46bc8008d24f2da6d2cb4f01b66b8d4974dc8c617e9857132667f0cf739529caf78b51d35b2984f196c1d1d9fbee73cf5293cfd857456ee3979947a1252bfe418216d15a3f334a1c9",
+    "t_message_len": 128,
+    "cgl1_hex": "43474c3101000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f00000000000000000000000006877d7dd90903cc18d6e15d2690ccdc59025d78d4a2991a4d0da4a12fa66fd052a05158576b51cb6bf4c4261f4bb1892122f3adced65703dc19b520242ee6bf47ad80ad0e84f593703d2eacde44c03e9d213b15791894803a7b78efdcb0124de8f8e781cc62688848286b39166174b035e8f094233f0908409d53cef253b42d2b32affbcc202b3c24787692178adab8",
+    "cgl1_len": 193,
+    "tag_hex": "2b32affbcc202b3c24787692178adab8",
+    "sha256_cgl1": "93cdda21c4499f81a543b81b398360144eed8b455d15882b093dad6d773fd84b"
+  }
+}

@@ -1,0 +1,63 @@
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      - 'v*'  # Déclenché quand vous poussez un tag comme v1.5.0
+  workflow_dispatch:  # Permet de déclencher manuellement depuis GitHub
+
+jobs:
+  test:
+    name: Run tests before publish
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest cryptography mpmath argon2-cffi
+    
+    - name: Run tests
+      run: |
+        python run_tests.py
+
+  build-and-publish:
+    name: Build and publish to PyPI
+    needs: test  # Attend que les tests passent
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # Nécessaire pour OIDC (trusted publishing)
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+    
+    - name: Install build dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build twine
+    
+    - name: Build package
+      run: python -m build
+    
+    - name: Check package
+      run: twine check dist/*
+    
+    - name: Publish to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      # Avec trusted publishing, pas besoin de token explicite
