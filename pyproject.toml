@@ -1,0 +1,103 @@
+[build-system]
+requires      = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name        = "cagoule"
+version     = "2.1.0"
+description = "Cryptographie Algébrique Géométrique par Ondes et Logique Entrelacée"
+readme      = "README.md"
+license     = { text = "MIT" }
+authors     = [{ name = "Slim Issa", email = "slim.issa@cagoule.io" }]
+requires-python = ">=3.9"
+keywords    = [
+    "cryptography", "encryption", "aead", "symmetric", "cipher",
+    "chacha20", "poly1305", "argon2id", "security", "cgl1", "vandermonde",
+    "feistel", "modular-arithmetic", "openssl", "hkdf",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: C",
+    "Topic :: Security :: Cryptography",
+    "Typing :: Typed",
+]
+dependencies = [
+    "cryptography>=42.0.0",
+    "argon2-cffi>=23.0.0",
+    # mpmath n'est plus une dépendance obligatoire depuis v2.1.0
+    # (omega.c couvre tous les cas de production)
+]
+
+[project.optional-dependencies]
+fallback = [
+    # Activer si libcagoule.so ne peut pas être compilé (environnement embarqué)
+    "mpmath>=1.3.0",
+]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-timeout>=2.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "build>=1.0.0",
+    "twine>=4.0.0",
+    "mpmath>=1.3.0",   # requis pour tests de compatibilité bit-à-bit C ↔ Python
+]
+bench = [
+    "pytest-benchmark>=4.0.0",
+    "psutil>=5.9.0",
+]
+
+[project.urls]
+Homepage      = "https://github.com/slimissa/CAGOULE"
+Repository    = "https://github.com/slimissa/CAGOULE"
+Documentation = "https://github.com/slimissa/CAGOULE#readme"
+Issues        = "https://github.com/slimissa/CAGOULE/issues"
+Changelog     = "https://github.com/slimissa/CAGOULE/releases"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where   = ["."]
+include = ["cagoule*"]
+exclude = ["tests*", "scripts*", "docs*"]
+
+[tool.setuptools.package-data]
+cagoule = [
+    "kat_vectors.json",
+    "py.typed",
+    "c/Makefile",
+    "c/include/*.h",
+    "c/src/*.c",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts   = ["-v", "--tb=short", "--strict-markers", "--timeout=300"]
+markers   = [
+    "slow: marks tests as slow",
+    "nist: marks NIST statistical tests",
+]
+
+[tool.black]
+line-length    = 100
+target-version = ["py39", "py310", "py311", "py312"]
+
+[tool.coverage.run]
+source = ["cagoule"]
+omit   = ["tests/*", "scripts/*", "cagoule/__version__.py"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+fail_under   = 75

@@ -1,0 +1,187 @@
+# ────────────────────────────────────────────────────────────────
+# Python
+# ────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+.env
+*.venv
+
+# ────────────────────────────────────────────────────────────────
+# C/C++ compilation artifacts
+# ────────────────────────────────────────────────────────────────
+# Object files
+*.o
+*.obj
+*.ko
+*.a
+*.dll
+*.dylib
+*.so.*
+*.dSYM/
+
+# Dependency files
+*.d
+*.d.*
+*.d.tmp
+
+# Static libraries
+*.lib
+*.a
+
+# Executables
+*.exe
+*.out
+*.app
+test_*
+!test_*.c
+!test_*.py
+
+# Profiling
+*.gcda
+*.gcno
+*.gcov
+*.prof
+*.profraw
+
+# Valgrind outputs
+valgrind_*.log
+*.log
+
+# ────────────────────────────────────────────────────────────────
+# IDE and editors
+# ────────────────────────────────────────────────────────────────
+# Visual Studio Code
+.vscode/
+*.code-workspace
+.history/
+
+# PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Vim
+*.swp
+*.swo
+*~
+*.un~
+
+# Sublime Text
+*.sublime-*
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ────────────────────────────────────────────────────────────────
+# OS specific
+# ────────────────────────────────────────────────────────────────
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+.directory
+*.tmp
+*.temp
+
+# ────────────────────────────────────────────────────────────────
+# CAGOULE specific
+# ────────────────────────────────────────────────────────────────
+# Build artifacts from cagoule/c/
+cagoule/c/libcagoule.so
+cagoule/c/test_math
+cagoule/c/test_matrix
+cagoule/c/test_sbox
+cagoule/c/test_cipher
+cagoule/c/test_omega
+cagoule/c/*.d
+cagoule/c/*.o
+cagoule/c/*.gcda
+cagoule/c/*.gcno
+cagoule/c/*.gcov
+cagoule/c/__pycache__/
+
+# Backup files
+*.bak
+*.backup
+*.orig
+*.rej
+
+# Local configuration
+.env
+.envrc
+*.local
+
+# Test coverage
+.coverage
+.coverage.*
+htmlcov/
+.coverage-report/
+.pytest_cache/
+.tox/
+
+# Jupyter notebooks (if any)
+.ipynb_checkpoints/
+
+# Log files
+*.log
+*.debug
+*.warn
+
+# Temporary files
+/tmp/
+/temp/
+*.swp
+*.swo
+
+# KAT vectors regenerated locally (keep the tracked one, ignore local copies)
+kat_vectors.local.json
+kat_omega_vectors.local.json
+
+# Sensitive data (never commit)
+*.key
+*.pem
+*.crt
+*.p12
+*.secrets
+secret*
+password*
+venv/
+__pycache__/
+*.pyc
