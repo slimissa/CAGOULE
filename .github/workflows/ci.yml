@@ -17,7 +17,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          sudo apt-get update
+          sudo apt-get update || true  # ARM64 repos may 404 on some runners
           sudo apt-get install -y gcc libssl-dev libargon2-dev pkg-config python3-pip python3-venv
           
       - name: Build C library
@@ -46,7 +46,7 @@ jobs:
       - name: Enable multiarch
         run: |
           sudo dpkg --add-architecture arm64
-          sudo apt-get update
+          sudo apt-get update || true  # ARM64 repos may 404 on some runners
           
       - name: Install QEMU and ARM64 toolchain
         run: |
