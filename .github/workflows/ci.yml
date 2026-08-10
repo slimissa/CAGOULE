@@ -2,9 +2,9 @@ name: CI Multi-Arch
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
   schedule:
     - cron: '0 6 * * 1'  # Every Monday at 6am UTC
 
