@@ -39,6 +39,7 @@ jobs:
 
   # ── ARM64 (QEMU emulation) ─────────────────────────────────
   test-arm64:
+    continue-on-error: true  # ARM64 QEMU is experimental
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
