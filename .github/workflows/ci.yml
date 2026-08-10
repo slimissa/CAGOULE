@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc libssl-dev pkg-config python3-pip
+          sudo apt-get install -y gcc libssl-dev libargon2-dev pkg-config python3-pip python3-venv
           
       - name: Build C library
         run: cd cagoule/c && make
@@ -27,10 +27,15 @@ jobs:
         run: cd cagoule/c && make tests
         
       - name: Install Python deps
-        run: pip install -e ".[dev]"
-        
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install -e ".[dev]"
+          
       - name: Run Python tests
-        run: pytest tests/ -v --timeout=300
+        run: |
+          source venv/bin/activate
+          pytest tests/ -v --timeout=300
 
   # ── ARM64 (QEMU emulation) ─────────────────────────────────
   test-arm64:
@@ -46,15 +51,12 @@ jobs:
       - name: Install QEMU and ARM64 toolchain
         run: |
           sudo apt-get install -y qemu-user-static gcc-aarch64-linux-gnu
-          # ARM64 libs for OpenSSL
-          sudo apt-get install -y libssl-dev:arm64 || true
+          sudo apt-get install -y libssl-dev:arm64 libargon2-dev:arm64 || true
           
       - name: Cross-compile for ARM64
         run: |
           cd cagoule/c
-          # Force scalar path (no AVX2 on ARM)
           CC=aarch64-linux-gnu-gcc make clean
-          # Override AVX2 detection for ARM
           sed -i 's|HAS_AVX2 :=.*|HAS_AVX2 := no|' Makefile
           CC=aarch64-linux-gnu-gcc make
           
@@ -71,7 +73,12 @@ jobs:
           done
           
       - name: Install Python deps
-        run: pip install -e ".[dev]"
-        
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install -e ".[dev]"
+          
       - name: Run Python tests
-        run: pytest tests/ -v --timeout=300
+        run: |
+          source venv/bin/activate
+          pytest tests/ -v --timeout=300
