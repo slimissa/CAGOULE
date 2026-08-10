@@ -1,0 +1,77 @@
+name: CI Multi-Arch
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  schedule:
+    - cron: '0 6 * * 1'  # Every Monday at 6am UTC
+
+jobs:
+  # ── x86-64 (native) ─────────────────────────────────────────
+  test-x86_64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc libssl-dev pkg-config python3-pip
+          
+      - name: Build C library
+        run: cd cagoule/c && make
+        
+      - name: Run C tests
+        run: cd cagoule/c && make tests
+        
+      - name: Install Python deps
+        run: pip install -e ".[dev]"
+        
+      - name: Run Python tests
+        run: pytest tests/ -v --timeout=300
+
+  # ── ARM64 (QEMU emulation) ─────────────────────────────────
+  test-arm64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Enable multiarch
+        run: |
+          sudo dpkg --add-architecture arm64
+          sudo apt-get update
+          
+      - name: Install QEMU and ARM64 toolchain
+        run: |
+          sudo apt-get install -y qemu-user-static gcc-aarch64-linux-gnu
+          # ARM64 libs for OpenSSL
+          sudo apt-get install -y libssl-dev:arm64 || true
+          
+      - name: Cross-compile for ARM64
+        run: |
+          cd cagoule/c
+          # Force scalar path (no AVX2 on ARM)
+          CC=aarch64-linux-gnu-gcc make clean
+          # Override AVX2 detection for ARM
+          sed -i 's|HAS_AVX2 :=.*|HAS_AVX2 := no|' Makefile
+          CC=aarch64-linux-gnu-gcc make
+          
+      - name: Run scalar C tests under QEMU
+        run: |
+          cd cagoule/c
+          for test in test_math test_matrix test_sbox test_cipher test_omega; do
+            echo "  → $test"
+            qemu-aarch64 -L /usr/aarch64-linux-gnu ./$test || {
+              echo "✗ $test FAILED"
+              exit 1
+            }
+            echo "  ✓ $test OK"
+          done
+          
+      - name: Install Python deps
+        run: pip install -e ".[dev]"
+        
+      - name: Run Python tests
+        run: pytest tests/ -v --timeout=300

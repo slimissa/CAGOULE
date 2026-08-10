@@ -1,0 +1,95 @@
+# cagoule_bench.toml — Configuration cagoule-bench v3.0.0
+#
+# P3 corrections v2.5.0 :
+#   - min_baseline_n = 5 : ignore les comparaisons si la baseline < 5 mesures
+#     (élimine les 11 faux positifs de régression observés en v2.3.0 sur N=2)
+#   - warmup_excluded = true : les warmup ne comptent pas dans N
+#   - Suite parallel : iterations=20, warmup=5 pour stabilité statistique
+
+[bench]
+version         = "3.0.0"
+output_format   = "console"          # "console" | "json" | "csv"
+output_file     = ""                 # "" = stdout
+units           = "MB/s"
+warmup          = 3
+iterations      = 20
+
+[regression]
+# Seuil de régression en % (négatif = perte de perf)
+threshold_pct     = -5.0
+# NOUVEAU v2.4.0 : n minimum pour une comparaison baseline valide
+# Si la baseline a été mesurée avec N < min_baseline_n, la comparaison
+# est ignorée et marquée "baseline_insufficient" plutôt que "FAIL".
+# Élimine les faux positifs sur N=2 (AES-256-GCM, ChaCha20 petits messages).
+min_baseline_n    = 5
+warmup_excluded   = true             # warmup ignorés dans le décompte N
+
+[suites.encryption]
+# Suite principale : chiffrement/déchiffrement à tailles variées
+enabled     = true
+warmup      = 3
+iterations  = 20
+sizes_kb    = [1, 8, 64, 1024, 10240]
+algorithms  = ["cagoule", "aes-256-gcm", "chacha20"]
+
+[suites.parallel]
+# Suite parallèle ProcessPool + ThreadPool
+# iterations=20 et warmup=5 pour stabilité statistique (v2.3.0 avait 3/1)
+enabled     = true
+warmup      = 5
+iterations  = 20
+workers     = [1, 2, 4, 8, 16, 20]
+executor    = "process"              # "process" | "thread" | "both"
+message_kb  = 1024
+
+[suites.bulk]
+# NOUVEAU v2.4.0 : benchmark encrypt_bulk / decrypt_bulk
+# Mesure le gain de la dérivation Argon2id unique sur N messages
+enabled        = true
+warmup         = 2
+iterations     = 10
+batch_sizes    = [1, 5, 10, 50, 100]
+message_kb     = 64
+thread_workers = [1, 2, 4, 8]
+
+[suites.components]
+# Benchmarks de composants isolés (C-layer uniquement)
+enabled     = true
+warmup      = 2
+iterations  = 10
+# Cibles : matrix_fwd, matrix_inv, sbox_fwd, sbox_inv, mulmod64
+components  = ["matrix_fwd", "matrix_inv", "sbox_fwd", "sbox_inv", "mulmod64", "ctr_keystream"]
+[suites.ctr]
+# v3.0.0: CTR mode benchmarks
+enabled     = true
+warmup      = 3
+iterations  = 20
+sizes_kb    = [1, 8, 64, 1024, 10240]
+# Compare CTR vs CBC
+algorithms  = ["cagoule-ctr", "cagoule-cbc"]
+
+[reporting]
+# Afficher uniquement les métriques > threshold_pct de variation
+show_only_regressions = false
+# Inclure l'analyse Amdahl dans le rapport parallel
+amdahl_analysis = true
+# Afficher CV (coefficient de variation) pour chaque mesure
+show_cv = true
+# CV > cv_warn_pct → avertissement "variance élevée"
+cv_warn_pct = 5.0
+
+[qshell]
+# Variables d'environnement exposées par `cgl` dans QShell (P4)
+# CAGOULE_WORKERS : nombre de ProcessPool workers
+# "auto" = min(cpu_count // 2, 8)
+default_workers = "auto"
+# Mode bulk activé par défaut pour les pipelines JSON (> 1 message)
+bulk_auto       = true
+
+[suites.mersenne]
+# v2.5.3: Mersenne-64 pool validation benchmark
+enabled     = true
+warmup      = 2
+iterations  = 10
+# Benchmarks mulmod_mersenne64x4 vs mulmod64 Barrett for all 8 primes
+primes      = "all"
